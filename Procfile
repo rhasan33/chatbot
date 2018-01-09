@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file=-
+web: docker-compose up --build
