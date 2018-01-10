@@ -1,15 +1,24 @@
-import os
-import sys
-import json
+import os, sys, json
 from datetime import datetime
 
 import requests
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 
-@app.route
+@app.route('/test', methods=['GET'])
+def test():
+    data = {
+        "success": True,
+        "message": "Graph api testing."
+    }
+    response = app.response_class(
+        response=json.dumps(data),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 
 @app.route('/', methods=['GET'])
@@ -79,19 +88,6 @@ def send_message(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
-
-
-def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
-    try:
-        if type(msg) is dict:
-            msg = json.dumps(msg)
-        else:
-            msg = unicode(msg).format(*args, **kwargs)
-        print (u"{}: {}".format(datetime.now(), msg))
-    except UnicodeEncodeError:
-        pass  # squash logging errors in case of non-ascii text
-    
-    sys.stdout.flush()
 
 
 if __name__ == '__main__':
