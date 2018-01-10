@@ -1,1 +1,1 @@
-web: docker-compose up --build
+web: gunicorn -w 2 -b :8000 app:app
