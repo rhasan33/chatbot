@@ -1,1 +1,1 @@
-web: gunicorn -w 2 -b graph-api-python.herokuapp.com app:app
+web: python3 app.py
