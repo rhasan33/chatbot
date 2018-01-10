@@ -1,1 +1,1 @@
-web: gunicorn -w 2 -b :80 app:app
+web: gunicorn -w 2 -b :8000 app:app
